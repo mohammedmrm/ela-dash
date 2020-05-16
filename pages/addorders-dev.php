@@ -45,6 +45,10 @@ include("config.php");
 .sp {
   background-color:#FDF5E6;
 }
+textarea[no='no'] {
+  resize: none;
+}
+
 #order-section input:focus, #order-section button:focus,  #order-section textarea:focus {
   border: 3px solid #8B0000 !important;
 }
@@ -146,10 +150,9 @@ include("config.php");
 				<input type="text" class="form-control" id="customer_name1" name="customer_name[]" value="">
 				<span id="customer_name_err1" class="form-text text-danger"></span>
 			</div>-->
-
             <div class="form-group col-lg-2">
             	<label>رقم الوصل:</label>
-            	<input  no="no" id="order_no1" name="order_no[]" barcode="barcode"  type="text" class="form-control kt-input sp" placeholder="">
+            	<input type="text" no="no" id="order_no1" name="order_no[]" value="" style="margin-top: 0px; margin-bottom: 0px; height: 38px;" barcode="barcode"  class="form-control  sp">
                <span id="order_no_err1" class="form-text text-danger"></span>
            </div>
 			<div class="form-group col-lg-2" style="display:none;" >
@@ -159,7 +162,7 @@ include("config.php");
                 </select>
                 <span id="store_err1" storeerr="storeerr" class="form-text text-danger"></span>
 			</div>
-			<div class="form-group col-lg-2">
+            <div class="form-group col-lg-2">
 				<label>المحافظة المرسل لها</label>
 				<select  city="city"  onchange='getTowns($("#town1"),$("#city1").val())' city="city" data-show-subtext="true" data-live-search="true" type="text" class="selectpicker  form-control dropdown-primary" name="city[]" id="city1"  value="">
 
@@ -599,7 +602,7 @@ function addMore(){
           <div class="row">
              <div class="form-group col-lg-2">
             	<label>رقم الوصل:</label>
-            	<input  no="no" id="order_no`+number+`" value="" name="order_no[]"  type="text" class="form-control sp" placeholder="">
+            	<textarea  no="no" id="order_no`+number+`" style="height: 38px;" value="" name="order_no[]"  type="text" class="form-control sp" placeholder=""></textarea>
                 <span id="order_no_err`+number+`" class="form-text text-danger"></span>
             </div>
 			<div class="form-group col-lg-2" style="display:none;">
@@ -834,7 +837,8 @@ $(document).keydown(function(e) {
 if (event.which === 13 || event.keyCode === 13 ) {
     event.stopPropagation();
     event.preventDefault();
-    $(":focus").closest('fieldset').next().find('[no="no"]').focus();
+    $("button:focus").selectpicker().data("selectpicker").$searchbox.focus();
+    $("input:focus").closest('fieldset').next().find('[no="no"]').focus();
 }
 
 
